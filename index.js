@@ -1,3 +1,27 @@
+import fs from 'fs';
+import path from 'path';
+
+export const getMdFilesArr = (dir) => {
+  const files = fs.readdirSync(dir, )
+  const mdFilesArr = []
+  files.forEach(file => {
+    if (path.extname(file) == '.md') {
+      mdFilesArr.push(file)
+    }
+  });
+return mdFilesArr;
+};
+
+export const readMdFile = (file) => {
+  const buffer = fs.readFileSync(file);
+  const fileContent = buffer.toString();
+  return fileContent;
+};
+
+const mdFilesHere = getMdFilesArr('./');
+const mdFilesContent = readMdFile(mdFilesHere[1]);
+console.log(mdFilesContent);
+
 export const mdLinks = (path, options) => {
   const linksArr = [];
   const links = findLinksInMdFile(path);
