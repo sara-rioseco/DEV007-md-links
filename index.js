@@ -1,7 +1,15 @@
+// importing modules
 import fs from 'fs';
 import path from 'path';
+import argv from 'process';
+import env from 'process';
+import process from 'process';
+import { Renderer, marked } from 'marked';
+import DOMPurify from 'isomorphic-dompurify';
+import { resourceLimits } from 'worker_threads';
 
-export const getMdFilesArr = (dir) => {
+// getting an array with all MD files in a directory
+export const getMdFilesArr = dir => {
   const files = fs.readdirSync(dir, )
   const mdFilesArr = []
   files.forEach(file => {
@@ -12,16 +20,34 @@ export const getMdFilesArr = (dir) => {
 return mdFilesArr;
 };
 
-export const readMdFile = (file) => {
+// getting the contents of an MD file as a string
+export const readMdFile = file => {
   const buffer = fs.readFileSync(file);
   const fileContent = buffer.toString();
   return fileContent;
 };
 
-const mdFilesHere = getMdFilesArr('./');
-const mdFilesContent = readMdFile(mdFilesHere[1]);
-console.log(mdFilesContent);
+// getting all links inside the MD content string (text and href together)
+export const getLinks = (str) => {
+  const fullRegex = /\[([^\[]+)\](\(.*\))/gm
+  const linksArr = str.match(fullRegex);
+  return linksArr;
+};
 
+// separating the text from the href, returning an Obj with both as properties
+export const separateLinks = (str) => {
+  const separatedRegex = /^\[([\w\s\d]+)\]\(((?:\/|https?:\/\/)[\w\d./?=#]+)\)$/
+  const results = str.match(separatedRegex);
+  return results;
+};
+
+// getting links in a specific MD file
+export const findLinksInMdFile = path => { };
+
+//getting links in All MD Files in a specific directory
+export const findLinksInAllMdFilesInDir = dir => { };
+
+// getting the links from a specific path with specific options
 export const mdLinks = (path, options) => {
   const linksArr = [];
   const links = findLinksInMdFile(path);
@@ -50,6 +76,55 @@ export const mdLinks = (path, options) => {
   options = {validate : true} ? promiseWithValidate() : promiseWithoutValidate();
 };
 
-export const findLinksInMdFile = path => {
+// ================ EXAMPLES AND TESTS ==================
 
-};
+const mdFilesHere = getMdFilesArr('./'); // MD files in this path
+const mdFileContent = readMdFile(mdFilesHere[0]); // Content of the specific MD file
+const linksInThisMdFile = getLinks(mdFileContent); // Links in this MD File text and href together
+const linksSeparated = separateLinks(linksInThisMdFile); // Array of links as objects with both text and href properties
+
+
+
+console.log((getLinks(mdFileContent)[0])); // prints all links inside the MD content string
+console.log(linksInThisMdFile[2]);
+console.log(separateLinks(linksInThisMdFile[2]));
+
+
+/* ======================= MARKED =======================
+//sanitizing html
+const sanitizedHTML = DOMPurify.sanitize(getLinks(mdFileContent));
+
+// parsing MD contents to HTML
+export const parseMdFile = mdContent => { marked.parse(mdContent)};
+
+// creating a new renderer
+const renderer = new marked.Renderer(sanitizedHTML);
+
+// setting options for marked
+marked.setOptions({
+  renderer,
+  pedantic: false,
+  gfm: true,
+  tables: true,
+  breaks: false,
+  smartLists: true,
+  smartypants: false,
+  xhtml: false,
+  mangle : false,
+  headerIds: false,
+  breaks: false,
+  pedantic: false,
+ });
+
+const newTokenizer = new marked.Tokenizer(mdFilesContent);
+const newRenderer = new marked.Renderer();
+newRenderer.link = (href, title, text) => {
+  const target = '';
+  if (href) {
+    target = "_blank";
+  }
+  else {
+    href = 'javascript:void(0);'
+  }
+  return `<a href="${href}">${text}</a>`; 
+}; */
