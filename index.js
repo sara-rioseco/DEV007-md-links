@@ -29,7 +29,7 @@ export const readMdFile = file => {
 
 // getting all links inside the MD content string (text and href together)
 export const getLinks = (str) => {
-  const fullRegex = /\[([^\[]+)\](\(.*\))/gm
+  const fullRegex = /!?\[([^\]]*)\]\(([^\)]+)\)/gm
   const linksArr = str.match(fullRegex);
   return linksArr;
 };
@@ -81,13 +81,14 @@ export const mdLinks = (path, options) => {
 const mdFilesHere = getMdFilesArr('./'); // MD files in this path
 const mdFileContent = readMdFile(mdFilesHere[0]); // Content of the specific MD file
 const linksInThisMdFile = getLinks(mdFileContent); // Links in this MD File text and href together
-const linksSeparated = separateLinks(linksInThisMdFile); // Array of links as objects with both text and href properties
+const linksArr = Object.values(linksInThisMdFile); // Array of links as objects with both text and href properties
 
-
-
-console.log((getLinks(mdFileContent)[0])); // prints all links inside the MD content string
-console.log(linksInThisMdFile[2]);
-console.log(separateLinks(linksInThisMdFile[2]));
+console.log(linksArr[0])
+console.log(linksArr[1])
+console.log(linksArr[2])
+console.log(linksArr[3])
+console.log(linksArr[4])
+console.log(linksArr[5])
 
 
 /* ======================= MARKED =======================
