@@ -1,13 +1,23 @@
 // importing modules
 import fs from 'fs';
-import path from 'path';
-import { resolve } from 'path';
+import path, { isAbsolute } from 'path';
 import argv from 'process';
 import env from 'process';
 import process from 'process';
-import { Renderer, marked } from 'marked';
-import DOMPurify from 'isomorphic-dompurify';
-import { resourceLimits } from 'worker_threads';
+// import { Renderer, marked } from 'marked';
+// import DOMPurify from 'isomorphic-dompurify';
+
+// checking if path is dir, returning boolean
+export const isDir = dir => fs.statSync(dir).isDirectory();
+
+// checking if path is file, returning boolean
+export const isFile = file => fs.statSync(file).isFile();
+
+// checking if path is absolute, returning boolean
+export const isAbsoluteDir = dir => path.isAbsolute(dir);
+
+// transforming relative path to absolute
+export const toAbsolute = dir => path.resolve(dir);
 
 // getting an array with all MD files in a specific directory
 export const getMdFilesArr = dir => {
@@ -16,7 +26,10 @@ export const getMdFilesArr = dir => {
   files.forEach(file => {
     if (path.extname(file) == '.md') {
       mdFilesArr.push(file)
-    }
+    };
+    if (isDir(file) === true ) {
+      getMdFilesArr(file)
+    };
   });
 return mdFilesArr;
 };
@@ -36,7 +49,7 @@ export const getLinks = (str) => {
 };
 
 // separating the text from the href, returning an Obj with both as properties
-export const separateLinks = (str) => {
+export const separateLink = (str) => {
   const textRegex = /!?\[([^\]]*)\]\(/gm
   const hrefRegex = /\(([^\)]+)\)/gm
   const text = str.match(textRegex);
@@ -45,6 +58,16 @@ export const separateLinks = (str) => {
   linkObj.text = text.toString().slice(1, -2);
   linkObj.href = href.toString().slice(1, -1);
   return linkObj;
+};
+
+// separating all links in one array, returning an Arr of Obj
+export const separateAllLinks = (linksArr) => {
+  const LinkObjArr = [];
+  linksArr.forEach(link => {
+    const separatedLink = separateLink(link);
+    LinkObjArr.push(separatedLink);
+  })
+  return LinkObjArr;
 };
 
 // getting links in a specific MD file
@@ -57,42 +80,13 @@ export const findLinksInAllMdFilesInDir = dir => {
 
 };
 
-// getting the links from a specific path with specific options
-export const mdLinks = (path, options) => {
-  const linksArr = [];
-  const links = findLinksInMdFile(path);
-  const promiseWithValidate = () => new Promise((resolve, reject)
-    .then(links.forEach(link => { 
-      const linkObj = new Object;
-      linkObj.href = '';
-      linkObj.text = '';
-      linkObj.file = `${path}`;
-      linkObj.status = '';
-      linkObj.ok = '';
-      linksArr.push(linkObj);
-      return linksArr;
-    }))
-    .catch(err => err));
-  const promiseWithoutValidate = () => new Promise((resolve, reject)
-    .then(links.forEach(link => { 
-      const linkObj = new Object;
-      linkObj.href = '';
-      linkObj.text = '';
-      linkObj.file = '';
-      linksArr.push(linkObj);
-      return linksArr;
-    }))
-    .catch(err => err));
-  options = {validate : true} ? promiseWithValidate() : promiseWithoutValidate();
-};
-
 // ================ EXAMPLES AND TESTS ==================
 
 const mdFilesHere = getMdFilesArr('./'); // MD files in this path
 const mdFileContent = readMdFile(mdFilesHere[0]); // Content of the specific MD file
 const linksInThisMdFile = getLinks(mdFileContent); // Links in this MD File text and href together
 const linksArr = Object.values(linksInThisMdFile); // Array of links as objects with both text and href properties
-const linkObjSeparated = separateLinks(linksArr[0]);
+const linkObjSeparated = separateAllLinks(linksArr);
 
 console.log(linksArr[0]);
 console.log(linksArr[1]);
@@ -100,8 +94,9 @@ console.log(linksArr[2]);
 console.log(linksArr[3]);
 console.log(linksArr[4]);
 console.log(linksArr[5]);
-console.log(linkObjSeparated);
-
+console.log(linkObjSeparated[2]);
+console.log(isDir(toAbsolute('../')));
+console.log(isAbsolute(toAbsolute('../Examples')));
 
 /* ======================= MARKED =======================
 // sanitizing html
