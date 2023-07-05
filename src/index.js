@@ -7,14 +7,14 @@ import process from 'process';
 // import { Renderer, marked } from 'marked';
 // import DOMPurify from 'isomorphic-dompurify';
 
+// checking if path is absolute, returning boolean
+export const isAbsolutePath = dir => path.isAbsolute(dir);
+
 // checking if path is dir, returning boolean
 export const isDir = element => fs.statSync(element).isDirectory();
 
 // checking if path is file, returning boolean
 export const isFile = element => fs.statSync(element).isFile();
-
-// checking if path is absolute, returning boolean
-export const isAbsolutePath = dir => path.isAbsolute(dir);
 
 // transforming relative path to absolute
 export const toAbsolute = dir => path.resolve(dir);
@@ -23,27 +23,32 @@ export const toAbsolute = dir => path.resolve(dir);
 export const getMdFilesArr = dir => {
   const files = fs.readdirSync(dir, {recursive:true})
   const mdFilesArr = []
-  files.forEach(element => {
-    if (isAbsolutePath(element)) {
-      if (!isDir(element)) {
-        if (path.extname(element) == '.md') {
-          mdFilesArr.push(element)
+  if (fs.existsSync(dir)) {
+    files.forEach(element => {
+      if (isAbsolutePath(element)) {
+        if (!isDir(element)) {
+          if (path.extname(element) == '.md') {
+            mdFilesArr.push(element)
+          };
+        } else { 
+          getMdFilesArr(element)  
         };
-      } else { 
-        getMdFilesArr(element)  
-      };
-    } else {
-      const absoluteElement = toAbsolute(element)
-      if (!isDir(absoluteElement)) {
-        if (path.extname(absoluteElement) == '.md') {
-          mdFilesArr.push(absoluteElement)
-        };
-      } else {
-        getMdFilesArr(absoluteElement)
+      } else if (!isAbsolutePath(element)) {
+        const absoluteElement = toAbsolute(element)
+        if (!isDir(absoluteElement)) {
+          if (path.extname(absoluteElement) == '.md') {
+            mdFilesArr.push(absoluteElement)
+          };
+        } else {
+          getMdFilesArr(absoluteElement)
+        }
       }
-    }
-  });
-return mdFilesArr;
+    });
+  return mdFilesArr;
+  } else {
+    console.log("path doesn't exist");
+  }
+
 };
 
 // getting the contents of an MD file as a string
@@ -94,7 +99,7 @@ export const findLinksInAllMdFilesInDir = dir => {
 
 // ================ EXAMPLES ==================
 
-const mdFilesHere = getMdFilesArr(toAbsolute('./')); // MD files in this path
+const mdFilesHere = getMdFilesArr('/src'); // MD files in this path
 const mdFileContent = readMdFile(mdFilesHere[0]); // Content of the specific MD file
 const linksInThisMdFile = getLinks(mdFileContent); // Links in this MD File text and href together
 const linksArr = Object.values(linksInThisMdFile); // Array of links as objects with both text and href properties
