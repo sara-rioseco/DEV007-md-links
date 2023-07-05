@@ -27,9 +27,9 @@ export const getMdFilesArr = dir => {
     if (path.extname(file) == '.md') {
       mdFilesArr.push(file)
     };
-    if (isDir(file) === true ) {
+/*    if (isDir(file) === true ) {
       getMdFilesArr(file)
-    };
+    };*/
   });
 return mdFilesArr;
 };
@@ -96,7 +96,12 @@ console.log(linksArr[4]);
 console.log(linksArr[5]);
 console.log(linkObjSeparated[2]);
 console.log(isDir(toAbsolute('../')));
-console.log(isAbsolute(toAbsolute('../Examples')));
+console.log(isDir('../'));
+console.log(toAbsolute('../src/Examples'));
+console.log(isDir('../test'));
+console.log(isDir(('../src/Examples')));
+
+
 
 /* ======================= MARKED =======================
 // sanitizing html
