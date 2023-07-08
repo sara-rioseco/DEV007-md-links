@@ -7,7 +7,7 @@ import {
     separateAllLinks,
     findLinksInMdFile,
     findLinksInAllMdFilesInDir
-    } from '/src/index.js';
+    } from './index'
 
 // getting all the links in all the md files in path (and every sub-path) with options
 export const mdLinks = (path, options) => {

@@ -1,9 +1,9 @@
-import { mdLinks } from "md-links.js";
+import { mdLinks } from "../md-links";
 
 
 describe('mdLinks', () => {
-  it('should return a promise', () => {
-    expect(mdLinks()).toBe(Promise);
+  it('should be a function', () => {
+    expect(typeof mdLinks).toBe('function');
   });
   it('should ', () => {
     
