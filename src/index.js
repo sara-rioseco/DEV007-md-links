@@ -21,7 +21,7 @@ export const toAbsolute = dir => path.resolve(dir);
 
 // getting an array with all MD files in a specific directory including sub-folders
 export const getMdFilesArr = dir => {
-  const files = fs.readdirSync(dir, {recursive:true})
+  const files = fs.readdirSync(dir, )
   const mdFilesArr = []
   if (fs.existsSync(dir)) {
     files.forEach(element => {
@@ -30,8 +30,8 @@ export const getMdFilesArr = dir => {
           if (path.extname(element) == '.md') {
             mdFilesArr.push(element)
           };
-        } else { 
-          getMdFilesArr(element)  
+/*        } else { 
+          getMdFilesArr(element)  */
         };
       } else if (!isAbsolutePath(element)) {
         const absoluteElement = toAbsolute(element)
@@ -39,8 +39,8 @@ export const getMdFilesArr = dir => {
           if (path.extname(absoluteElement) == '.md') {
             mdFilesArr.push(absoluteElement)
           };
-        } else {
-          getMdFilesArr(absoluteElement)
+/*        } else {
+          getMdFilesArr(absoluteElement)*/
         }
       }
     });
@@ -99,7 +99,7 @@ export const findLinksInAllMdFilesInDir = dir => {
 
 // ================ EXAMPLES ==================
 
-const mdFilesHere = getMdFilesArr('/src'); // MD files in this path
+const mdFilesHere = getMdFilesArr('./'); // MD files in this path
 const mdFileContent = readMdFile(mdFilesHere[0]); // Content of the specific MD file
 const linksInThisMdFile = getLinks(mdFileContent); // Links in this MD File text and href together
 const linksArr = Object.values(linksInThisMdFile); // Array of links as objects with both text and href properties
