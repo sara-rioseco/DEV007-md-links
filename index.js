@@ -7,6 +7,9 @@ import process from 'process';
 // import { Renderer, marked } from 'marked';
 // import DOMPurify from 'isomorphic-dompurify';
 
+// checkin if route exists
+export const pathExists = path => fs.existsSync(path);
+
 // checking if path is absolute, returning boolean
 export const isAbsolutePath = dir => path.isAbsolute(dir);
 
@@ -16,14 +19,17 @@ export const isDir = element => fs.statSync(element).isDirectory();
 // checking if path is file, returning boolean
 export const isFile = element => fs.statSync(element).isFile();
 
+// reading a directory, returning a buffer
+export const readingDir = dir => fs.readdirSync(dir);
+
 // transforming relative path to absolute
 export const toAbsolute = dir => path.resolve(dir);
 
 // getting an array with all MD files in a specific directory including sub-folders
 export const getMdFilesArr = dir => {
-  const files = fs.readdirSync(dir, )
+  const files = readingDir(dir)
   const mdFilesArr = []
-  if (fs.existsSync(dir)) {
+  if (pathExists(dir)) {
     files.forEach(element => {
       if (isAbsolutePath(element)) {
         if (!isDir(element)) {
@@ -99,21 +105,16 @@ export const findLinksInAllMdFilesInDir = dir => {
 
 // ================ EXAMPLES ==================
 
-const mdFilesHere = getMdFilesArr('./'); // MD files in this path
+const mdFilesHere = getMdFilesArr('/Examples'); // MD files in this path
 const mdFileContent = readMdFile(mdFilesHere[0]); // Content of the specific MD file
 const linksInThisMdFile = getLinks(mdFileContent); // Links in this MD File text and href together
 const linksArr = Object.values(linksInThisMdFile); // Array of links as objects with both text and href properties
 const linkObjSeparated = separateAllLinks(linksArr);
 
-console.log(linksArr[0]);
-console.log(linksArr[1]);
-console.log(linksArr[2]);
-console.log(linksArr[3]);
-console.log(linksArr[4]);
-console.log(linksArr[5]);
+console.log(linksArr);
 console.log(linkObjSeparated[2]);
 console.log(isDir(toAbsolute('../')));
-console.log(toAbsolute('../src/Examples'));
+console.log(isDir(toAbsolute('./Examples')));
 
 /* ======================= MARKED =======================
 // sanitizing html
