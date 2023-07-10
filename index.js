@@ -26,37 +26,38 @@ export const readingDir = dir => fs.readdirSync(dir);
 export const toAbsolute = dir => path.resolve(dir);
 
 // getting an array with all MD files in a specific directory including sub-folders
-export const getMdFilesArr = dir => {
-  const files = readingDir(dir)
+export const getMdFilesArr = route => {
   const mdFilesArr = []
-  if (pathExists(dir)) {
+  if (pathExists(route)) {
+    const files = readingDir(route)
     files.forEach(element => {
       if (isAbsolutePath(element)) {
         if (!isDir(element)) {
-          if (path.extname(element) == '.md') {
-            mdFilesArr.push(element)
+          const file = element;
+          if (path.extname(file) == '.md') {
+            mdFilesArr.push(file)
+          } else { 
+          const newRoute = path.join(route, file)
+          getMdFilesArr(newRoute)
           };
-/*        } else { 
-          getMdFilesArr(element)  */
-        };
+        }
       } else if (!isAbsolutePath(element)) {
         const absoluteElement = toAbsolute(element)
         if (!isDir(absoluteElement)) {
           if (path.extname(absoluteElement) == '.md') {
             mdFilesArr.push(absoluteElement)
           };
-/*        } else {
-          getMdFilesArr(absoluteElement)*/
+        } else {
+          const newRoute = path.join(route, absoluteElement)
+          getMdFilesArr(newRoute);
         }
       }
-    });
-  return mdFilesArr;
+  });  return mdFilesArr;
   } else {
     console.log("path doesn't exist");
   }
-
 };
-
+ 
 // getting the contents of an MD file as a string
 export const readMdFile = file => {
   const buffer = fs.readFileSync(file);
@@ -105,7 +106,7 @@ export const findLinksInAllMdFilesInDir = dir => {
 
 // ================ EXAMPLES ==================
 
-const mdFilesHere = getMdFilesArr('/Examples'); // MD files in this path
+const mdFilesHere = getMdFilesArr('./Examples'); // MD files in this path
 const mdFileContent = readMdFile(mdFilesHere[0]); // Content of the specific MD file
 const linksInThisMdFile = getLinks(mdFileContent); // Links in this MD File text and href together
 const linksArr = Object.values(linksInThisMdFile); // Array of links as objects with both text and href properties
