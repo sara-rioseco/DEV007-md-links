@@ -25,6 +25,12 @@ export const readingDir = dir => fs.readdirSync(dir);
 // transforming relative path to absolute
 export const toAbsolute = dir => path.resolve(dir);
 
+// checking if file extension is .md
+export const isMd = file => path.extname(file) == '.md' // revisar
+
+// merging route with new file
+export const mergePath = (route, file) => path.join(route, file)
+
 // getting an array with all MD files in a specific directory including sub-folders
 export const getMdFilesArr = route => {
   const mdFilesArr = []
@@ -33,23 +39,21 @@ export const getMdFilesArr = route => {
     files.forEach(element => {
       if (isAbsolutePath(element)) {
         if (!isDir(element)) {
-          const file = element;
-          if (path.extname(file) == '.md') {
-            mdFilesArr.push(file)
-          } else { 
-          const newRoute = path.join(route, file)
-          getMdFilesArr(newRoute)
+          if (isMd(element)) {
+            mdFilesArr.push(element)
+         } else { 
+          const newRoute = mergePath(route, element)
+          getMdFilesArr(newRoute);
           };
         }
       } else if (!isAbsolutePath(element)) {
         const absoluteElement = toAbsolute(element)
         if (!isDir(absoluteElement)) {
-          if (path.extname(absoluteElement) == '.md') {
+          if (isMd(absoluteElement)) {
             mdFilesArr.push(absoluteElement)
           };
         } else {
-          const newRoute = path.join(route, absoluteElement)
-          getMdFilesArr(newRoute);
+          getMdFilesArr(absoluteElement);
         }
       }
   });  return mdFilesArr;
@@ -104,9 +108,9 @@ export const findLinksInAllMdFilesInDir = dir => {
 
 };
 
-// ================ EXAMPLES ==================
+// ================ EXAMPLES & TESTS ==================
 
-const mdFilesHere = getMdFilesArr('./Examples'); // MD files in this path
+const mdFilesHere = getMdFilesArr('./'); // MD files in this path
 const mdFileContent = readMdFile(mdFilesHere[0]); // Content of the specific MD file
 const linksInThisMdFile = getLinks(mdFileContent); // Links in this MD File text and href together
 const linksArr = Object.values(linksInThisMdFile); // Array of links as objects with both text and href properties
@@ -114,8 +118,6 @@ const linkObjSeparated = separateAllLinks(linksArr);
 
 console.log(linksArr);
 console.log(linkObjSeparated[2]);
-console.log(isDir(toAbsolute('../')));
-console.log(isDir(toAbsolute('./Examples')));
 
 /* ======================= MARKED =======================
 // sanitizing html
