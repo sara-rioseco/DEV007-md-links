@@ -24,7 +24,7 @@ export const mdLinks = (path, options) => {
         linksArr.push(linkObj);
         return linksArr;
       }))
-      .catch(err => err));
+      .catch(error => 'there was an error'));
     const promiseWithoutValidate = () => new Promise((resolve, reject)
       .then(links.forEach(link => { 
         const linkObj = new Object;
@@ -34,6 +34,6 @@ export const mdLinks = (path, options) => {
         linksArr.push(linkObj);
         return linksArr;
       }))
-      .catch(err => err));
+      .catch(error => 'there was an error'));
     options = {validate : true} ? promiseWithValidate() : promiseWithoutValidate();
   };
