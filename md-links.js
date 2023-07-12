@@ -6,13 +6,27 @@ import {
     separateLink,
     separateAllLinks,
     findLinksInMdFile,
-    findLinksInAllMdFilesInDir
+    checkOptions,
     } from './index.js';
 
-// getting all the links in all the md files in path (and every sub-path) with options
 export const mdLinks = (path, options) => {
-    const linksArr = [];
-    const links = findLinksInMdFile(path);
+  const optionsEntered = checkOptions();
+  options = optionsEntered;
+  const linksArr = [];
+  console.log(options);
+  if (options.validate && options.stats) {
+    console.log('ejecuta con validate y con stats');
+  };
+  if (options.validate && !options.stats) {
+    console.log('ejecuta con validate y sin stats') 
+  };
+  if (!options.validate && options.stats) {
+    console.log('ejecuta sin validate y con stats')
+  };
+  if (!options.validate && !options.stats) {
+    console.log('ejecuta sin validate y sin stats') 
+  }
+
     const promiseWithValidate = () => new Promise((resolve, reject)
       .then(links.forEach(link => { 
         const linkObj = new Object;
@@ -35,5 +49,6 @@ export const mdLinks = (path, options) => {
         return linksArr;
       }))
       .catch(error => 'there was an error'));
-    options = {validate : true} ? promiseWithValidate() : promiseWithoutValidate();
   };
+
+  mdLinks('./Examples', {});

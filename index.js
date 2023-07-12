@@ -1,23 +1,12 @@
 // importing modules
 import fs from 'fs';
 import path, { isAbsolute } from 'path';
-import argv from 'process';
-import env from 'process';
-import process from 'process';
+
 // import { Renderer, marked } from 'marked';
 // import DOMPurify from 'isomorphic-dompurify';
 
 // checkin if route exists
 export const pathExists = path => fs.existsSync(path);
-
-// checking if path is absolute, returning boolean
-export const pathIsAbsolute = dir => path.isAbsolute(dir);
-
-// transforming relative path to absolute
-export const toAbsolute = dir => path.resolve(dir);
-
-// checking if path is dir, returning boolean
-export const isDir = element => fs.statSync(element).isDirectory();
 
 // reading a directory, returning an array with each element
 export const readingDir = dir => fs.readdirSync(dir, 'utf-8');
@@ -28,22 +17,21 @@ export const isFile = element => fs.statSync(element).isFile();
 // checking if file extension is .md
 export const isMd = file => path.extname(file) == '.md'
 
-// merging route with new file
-export const mergePath = (route, file) => path.join(route, file)
-
 // getting an array with all MD files in a specific directory including sub-folders
 export const getMdFilesArr = (route, mdFilesArr = []) => {
   if (pathExists(route)) {
-    route=toAbsolute(route)
+    route=path.resolve(route)
     if ((isFile(route)) && (isMd(route))){
       mdFilesArr.push(route)
     } else { 
       const folderContent = readingDir(route)
       folderContent.forEach(element => { 
-        const newRoute = mergePath(route, element)
+        const newRoute = path.join(route, element)
         getMdFilesArr(newRoute, mdFilesArr);
       })
     };
+  } else {
+    console.log('path does not exist');
   }
   return mdFilesArr;
 };
@@ -93,9 +81,29 @@ export const findLinksInMdFile = route => {
   return linksObjArr;
 };
 
-// getting links in All MD Files in a specific directory
-export const findLinksInAllMdFilesInDir = dir => {
-
+//checking if options validate and stats are true or not
+export const checkOptions = () => {
+  const options = new Object
+  options.validate = '';
+  options.stats = '';
+  if(process.argv.includes('--validate')) {
+    if (process.argv.includes('--stats')) {
+      options.validate = true;
+      options.stats = true;
+    } else {
+      options.validate = true;
+      options.stats = false;
+    }
+  } if (!process.argv.includes('--validate')) {
+    if (process.argv.includes('--stats')) {
+      options.validate = false;
+      options.stats = true;
+    } else {
+      options.validate = false;
+      options.stats = false;
+    }
+  }
+return options
 };
 
 // ================ EXAMPLES & TESTS ==================
@@ -107,8 +115,5 @@ const linksInThisMdFile = getLinks(mdFileContent); // Links in this MD File text
 const linksArr = Object.values(linksInThisMdFile); // Array of links as objects with both text and href properties
 const linkObjSeparated = separateAllLinks(linksArr);
 
-console.log(linksArr);
-console.log(linkObjSeparated[2]);
-
-console.log(getMdFilesArr('C:\\Users\\sarar\\Documents\\Laboratoria\\GitHub\\DEV007-md-links\\Examples'));
-console.log(findLinksInMdFile(toAbsolute('./README.md'))[10]);
+console.log(linkObjSeparated[11]);
+console.log(findLinksInMdFile(path.resolve('./README.md'))[10]);

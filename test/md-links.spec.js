@@ -10,7 +10,7 @@ describe('mdLinks', () => {
     expect(mdLinks()).toBe(typeof Object);
   });
   it('should return an error when path does not exist', () => {
-    expect(typeof mdLinks('/Examples/example.md')).toBe('array')
+    expect(mdLinks('/Examples/example.md')).toBe('')
   })*/
   it('should ', () => {
     
