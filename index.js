@@ -1,9 +1,6 @@
 // importing modules
 import fs from 'fs';
-import path, { isAbsolute } from 'path';
-
-// import { Renderer, marked } from 'marked';
-// import DOMPurify from 'isomorphic-dompurify';
+import path from 'path';
 
 // checkin if route exists
 export const pathExists = path => fs.existsSync(path);
@@ -32,6 +29,7 @@ export const getMdFilesArr = (route, mdFilesArr = []) => {
     };
   } else {
     console.log('path does not exist');
+    throw new Error('Path does not axist')
   }
   return mdFilesArr;
 };
@@ -43,10 +41,19 @@ export const readMdFile = file => {
   return fileContent;
 };
 
-// getting all links inside the MD content string (text and href together)
+// getting all links inside the MD content string (text and href together), filtering imgs and inner references
 export const getLinks = (str) => {
   const fullRegex = /!?\[([^\]]*)\]\(([^\)]+)\)/gm
   const linksArr = str.match(fullRegex);
+  const filteringArr = () => {
+    for (let i=0; i<linksArr.length; i++) {
+      if ((linksArr[i][0] == '!') || (linksArr[i].includes('](#'))) {
+        linksArr.splice(i, 1);
+        filteringArr();
+      }
+    }
+  }
+  filteringArr();
   return linksArr;
 };
 
@@ -108,12 +115,7 @@ return options
 
 // ================ EXAMPLES & TESTS ==================
 
-
-const mdFilesHere = getMdFilesArr('./README.md'); // MD files in this path
+/* const mdFilesHere = getMdFilesArr('./README.md'); // MD files in this path
 const mdFileContent = readMdFile(mdFilesHere[0]); // Content of the specific MD file
 const linksInThisMdFile = getLinks(mdFileContent); // Links in this MD File text and href together
-const linksArr = Object.values(linksInThisMdFile); // Array of links as objects with both text and href properties
-const linkObjSeparated = separateAllLinks(linksArr);
-
-console.log(linkObjSeparated[11]);
-console.log(findLinksInMdFile(path.resolve('./README.md'))[10]);
+console.log(findLinksInMdFile(path.resolve('./README.md'))); */
