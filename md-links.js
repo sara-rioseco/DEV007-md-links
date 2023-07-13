@@ -3,61 +3,57 @@ import {
     getMdFilesArr,
     getLinks,
     checkOptions,
+    readMdFile,
+    separateLink,
+    separateAllLinks,
+    findLinksInMdFile,
     } from './index.js';
+
+const promiseNoValidateNoStats = (arr, path) => new Promise((resolve, reject) => {
+  resolve(() => (arr.map(file => (findLinksInMdFile(file)))).flat(1));
+  reject(() => { throw new Error('Error reading files')});
+});
+const promiseValidateNoStats = (arr) => new Promise((resolve, reject) => {
+/*  resolve(() => (arr.map(file => (findLinksInMdFile(file)))).flat(1));
+  reject(() => { throw new Error('Error reading files')}); */
+});
+const promiseNoValidateStats = (arr) => new Promise((resolve, reject) => {
+/*  resolve(() => (arr.map(file => (findLinksInMdFile(file)))).flat(1));
+  reject(() => { throw new Error('Error reading files')}); */
+});
+const promiseValidateStats = (arr) => new Promise((resolve, reject) => {
+/*  resolve(() => (arr.map(file => (findLinksInMdFile(file)))).flat(1));
+  reject(() => { throw new Error('Error reading files')});*/
+});
 
 export const mdLinks = (path, options) => {
   const optionsEntered = checkOptions();
   options = optionsEntered;
+  const filesArr = getMdFilesArr(path, []);
   if (options.validate && options.stats) {
     console.log('ejecuta con validate y con stats');
+    promiseValidateStats(filesArr, path)
+    .then(result => console.log(result()))
+    .catch(err => {throw new Error(err)})
   };
   if (options.validate && !options.stats) {
-    console.log('ejecuta con validate y sin stats') 
+    console.log('ejecuta con validate y sin stats');
+    promiseValidateNoStats(filesArr, path)
+    .then(result => console.log(result()))
+    .catch(err => {throw new Error(err)})
   };
   if (!options.validate && options.stats) {
-    console.log('ejecuta sin validate y con stats')
+    console.log('ejecuta sin validate y con stats');
+    promiseNoValidateStats(filesArr, path)
+    .then(result => console.log(result()))
+    .catch(err => {throw new Error(err)})
   };
   if (!options.validate && !options.stats) {
-    console.log('ejecuta sin validate y sin stats')
-    return new Promise((resolve, reject) => {
-      const mdFilesArr = getMdFilesArr(path, []);
-      resolve(() => console.log(getLinks(mdFilesArr)));
-      reject(() => { throw new Error('Error reading files')} );
-    })
-  } else {
-    throw new Error('invalid command')
+    console.log('ejecuta sin validate y sin stats');
+    promiseNoValidateNoStats(filesArr, path)
+    .then(result => console.log(result()))
+    .catch(err => {throw new Error(err)})
   }
-
-  const promiseWithValidate = () => new Promise((resolve, reject)
-  .then(links.forEach(link => { 
-    const linkObj = new Object;
-    linkObj.href = '';
-    linkObj.text = '';
-    linkObj.file = `${path}`;
-    linkObj.status = '';
-    linkObj.ok = '';
-    linksArr.push(linkObj);
-    return linksArr;
-  }))
-  .catch(error => 'there was an error'));
-const promiseNoValidateNoStats = () => new Promise((resolve, reject) => {
-  resolve(() => getLinks(mdFilesArr));
-  reject(() => { throw new Error('Error reading files')} );
-});
-const promiseValidateNoStats = () => new Promise((resolve, reject) => {
-  resolve(() => getLinks(mdFilesArr));
-  reject(() => { throw new Error('Error reading files')} );
-});
-const promiseNoValidateStats = () => new Promise((resolve, reject) => {
-  resolve(() => getLinks(mdFilesArr));
-  reject(() => { throw new Error('Error reading files')} );
-});
-const promiseValidateStats = (
-
-) => new Promise((resolve, reject) => {
-  resolve(() => getLinks(mdFilesArr));
-  reject(() => { throw new Error('Error reading files')} );
-});
 };
 
-console.log(mdLinks('./Examples', ));
+mdLinks('./Examples', )

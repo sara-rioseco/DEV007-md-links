@@ -88,6 +88,10 @@ export const findLinksInMdFile = route => {
   return linksObjArr;
 };
 
+export const getValidation = url => {
+
+}
+
 //checking if options validate and stats are true or not
 export const checkOptions = () => {
   const options = new Object
@@ -115,7 +119,9 @@ return options
 
 // ================ EXAMPLES & TESTS ==================
 
-/* const mdFilesHere = getMdFilesArr('./README.md'); // MD files in this path
-const mdFileContent = readMdFile(mdFilesHere[0]); // Content of the specific MD file
-const linksInThisMdFile = getLinks(mdFileContent); // Links in this MD File text and href together
-console.log(findLinksInMdFile(path.resolve('./README.md'))); */
+// fuera de la promesa
+// const mdFilesHere = getMdFilesArr('./Examples', ); // MD files in this path
+
+// dentro de la promesa
+// const testsito = mdFilesHere.map(file => findLinksInMdFile(file));
+// console.log(testsito.flat(1))
