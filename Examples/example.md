@@ -15,5 +15,5 @@ Adding some links now:
 ## And here are some more links to test ##
 
 * [Array.prototype.forEach() - MDN](https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach)
-* [File system - Documentación oficial (en inglés)](https://nodejs.org/api/fs.html)
-* [Path - Documentación oficial (en inglés)](https://nodejs.org/api/path.html)
+* [File system - Documentación oficial](https://nodejs.org/api/fs.html)
+* [Path - Documentación oficial](https://nodejs.org/api/path.html)

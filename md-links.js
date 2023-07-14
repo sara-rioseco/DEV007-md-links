@@ -5,7 +5,7 @@ import {
     NoValidate,
     ValidateNoStats,
     ValidateStats,
-    getStats
+    countStats
     } from './index.js';
 
 export const mdLinks = (path, options) => {
@@ -14,7 +14,7 @@ export const mdLinks = (path, options) => {
   const filesArr = getMdFilesArr(path, []);
   if (options.validate && options.stats) {
     console.log('ejecuta con validate y con stats');
-    Promise.all(ValidateStats(filesArr)).then(result => console.log((result), getStats(result)))
+    Promise.all(ValidateStats(filesArr)).then(result => console.log((result), countStats(result)))
   };
   if (options.validate && !options.stats) {
     console.log('ejecuta con validate y sin stats');
@@ -22,7 +22,7 @@ export const mdLinks = (path, options) => {
   };
   if (!options.validate && options.stats) {
     console.log('ejecuta sin validate y con stats');
-    Promise.all(NoValidate(filesArr)).then(result => console.log(result, getStats(result)))
+    Promise.all(NoValidate(filesArr)).then(result => console.log(result, countStats(result)))
   };
   if (!options.validate && !options.stats) {
     console.log('ejecuta sin validate y sin stats');

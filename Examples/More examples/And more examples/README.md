@@ -130,7 +130,7 @@ Reflexiona y luego marca los objetivos que has llegado a entender y aplicar en t
   <details><summary>Links</summary><p>
 
   * [Promise - MDN](https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/Promise)
-  * [How to Write a JavaScript Promise - freecodecamp (en inglés)](https://www.freecodecamp.org/news/how-to-write-a-javascript-promise-4ed8d44292b8/)
+  * [How to Write a JavaScript Promise - freecodecamp](https://www.freecodecamp.org/news/how-to-write-a-javascript-promise-4ed8d44292b8/)
 </p></details>
 
 - [ ] **Pruebas unitarias (unit tests)**
@@ -166,36 +166,36 @@ Reflexiona y luego marca los objetivos que has llegado a entender y aplicar en t
 
   <details><summary>Links</summary><p>
 
-  * [Sitio oficial de npm (en inglés)](https://www.npmjs.com/)
+  * [Sitio oficial de npm](https://www.npmjs.com/)
 </p></details>
 
 - [ ] **Configuración de package.json**
 
   <details><summary>Links</summary><p>
 
-  * [package.json - Documentación oficial (en inglés)](https://docs.npmjs.com/files/package.json)
+  * [package.json - Documentación oficial](https://docs.npmjs.com/files/package.json)
 </p></details>
 
 - [ ] **Configuración de npm-scripts**
 
   <details><summary>Links</summary><p>
 
-  * [scripts - Documentación oficial (en inglés)](https://docs.npmjs.com/misc/scripts)
+  * [scripts - Documentación oficial](https://docs.npmjs.com/misc/scripts)
 </p></details>
 
 - [ ] **process (env, argv, stdin-stdout-stderr, exit-code)**
 
   <details><summary>Links</summary><p>
 
-  * [Process - Documentación oficial (en inglés)](https://nodejs.org/api/process.html)
+  * [Process - Documentación oficial](https://nodejs.org/api/process.html)
 </p></details>
 
 - [ ] **File system (fs, path)**
 
   <details><summary>Links</summary><p>
 
-  * [File system - Documentación oficial (en inglés)](https://nodejs.org/api/fs.html)
-  * [Path - Documentación oficial (en inglés)](https://nodejs.org/api/path.html)
+  * [File system - Documentación oficial](https://nodejs.org/api/fs.html)
+  * [Path - Documentación oficial](https://nodejs.org/api/path.html)
 </p></details>
 
 ### Control de Versiones (Git y GitHub)

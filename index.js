@@ -135,7 +135,7 @@ export const ValidateStats = (arr) => {
 };
 
 // count stats
-export const getStats = (arr) => {
+export const countStats = (arr) => {
   const totalLinks = arr.length;
   const uniqueSet = new Set(arr);
   let brokenLinks = 0;
@@ -152,13 +152,3 @@ export const getStats = (arr) => {
   unique: ${uniqueSet.size}
   broken: ${brokenLinks}`
 }
-
-// ================ EXAMPLES & TESTS ==================
-
-// fuera de la promesa
-const mdFilesHere = getMdFilesArr('./Examples', ); // MD files in this path
-
-// dentro de la promesa
-const testsito = mdFilesHere.map(file => findLinksInMdFile(file));
-const arrFinal = testsito.flat(1)
-// getStatus(arrFinal[2])
