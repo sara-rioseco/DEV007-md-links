@@ -118,7 +118,7 @@ export const getStatus = (linkObj) => {
 }
 
 // fx for options = {validate: false, stats:false}
-export const NoValidateNoStats = (arr) => arr.map(file => (findLinksInMdFile(file))).flat(1);
+export const NoValidate = (arr) => arr.map(file => (findLinksInMdFile(file))).flat(1);
 
 // fx for options = {validate: true, stats:false}
 export const ValidateNoStats = (arr) => {
@@ -127,17 +127,11 @@ export const ValidateNoStats = (arr) => {
   return newArr;
 };
 
-// fx for options = {validate: false, stats:true}
-export const NoValidateStats = (arr) => {
-  const objArr = arr.map(file => (findLinksInMdFile(file))).flat(1);
-  return objArr
-};
-
 // fx for options = {validate: true, stats:true}
 export const ValidateStats = (arr) => {
   const objArr = arr.map(file => (findLinksInMdFile(file))).flat(1);
   const newArr = objArr.map(obj => getStatus(obj));
-  return newArr
+  return newArr;
 };
 
 // count stats

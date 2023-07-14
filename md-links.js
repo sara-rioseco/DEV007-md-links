@@ -2,9 +2,8 @@
 import {
     getMdFilesArr,
     checkOptions,
-    NoValidateNoStats,
+    NoValidate,
     ValidateNoStats,
-    NoValidateStats,
     ValidateStats,
     getStats
     } from './index.js';
@@ -23,11 +22,11 @@ export const mdLinks = (path, options) => {
   };
   if (!options.validate && options.stats) {
     console.log('ejecuta sin validate y con stats');
-    Promise.all(NoValidateStats(filesArr)).then(result => console.log(result, getStats(result)))
+    Promise.all(NoValidate(filesArr)).then(result => console.log(result, getStats(result)))
   };
   if (!options.validate && !options.stats) {
     console.log('ejecuta sin validate y sin stats');
-    Promise.all(NoValidateNoStats(filesArr)).then(result => console.log(result))
+    Promise.all(NoValidate(filesArr)).then(result => console.log(result))
   };
 };
 
