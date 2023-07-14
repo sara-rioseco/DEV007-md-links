@@ -3,26 +3,14 @@ import fs from 'fs';
 import path from 'path';
 import axios from 'axios';
 
-// checkin if route exists
-export const pathExists = path => fs.existsSync(path);
-
-// reading a directory, returning an array with each element
-export const readingDir = dir => fs.readdirSync(dir, 'utf-8');
-
-// checking if path is file, returning boolean
-export const isFile = element => fs.statSync(element).isFile();
-
-// checking if file extension is .md
-export const isMd = file => path.extname(file) == '.md'
-
 // getting an array with all MD files in a specific directory including sub-folders
 export const getMdFilesArr = (route, mdFilesArr = []) => {
-  if (pathExists(route)) {
+  if (fs.existsSync(route)) {
     route=path.resolve(route)
-    if ((isFile(route)) && (isMd(route))){
+    if ((fs.statSync(route).isFile()) && (path.extname(route) == '.md')){
       mdFilesArr.push(route)
     } else { 
-      const folderContent = readingDir(route)
+      const folderContent = fs.readdirSync(route, 'utf-8')
       folderContent.forEach(element => { 
         const newRoute = path.join(route, element)
         getMdFilesArr(newRoute, mdFilesArr);
@@ -89,10 +77,6 @@ export const findLinksInMdFile = route => {
   return linksObjArr;
 };
 
-export const getValidation = url => {
-
-}
-
 //checking if options validate and stats are true or not
 export const checkOptions = () => {
   const options = new Object
@@ -120,17 +104,60 @@ return options
 
 // getting http status and status text from linkObj
 export const getStatus = (linkObj) => {
-  console.log(linkObj)
-  const url = linkObj.href;
-  axios.get(url)
+  return axios.get(linkObj.href)
     .then(response => {
       linkObj.status = response.status;
-      linkObj.ok = response.statusText;
-      console.log(linkObj);
+      linkObj.ok = response.status >= 200 && response.status < 300 ? 'ok' : 'fail';
       return linkObj;
     })
-    // .catch(error => { throw new Error(error)}); 
+    .catch(error => {
+      linkObj.status = error.response ? error.response.status : 'Unknown';
+      linkObj.ok = 'fail';
+      return linkObj;
+    });
+}
+
+// fx for options = {validate: false, stats:false}
+export const NoValidateNoStats = (arr) => arr.map(file => (findLinksInMdFile(file))).flat(1);
+
+// fx for options = {validate: true, stats:false}
+export const ValidateNoStats = (arr) => {
+  const objArr = arr.map(file => (findLinksInMdFile(file))).flat(1);
+  const newArr = objArr.map(obj => getStatus(obj));
+  return newArr;
 };
+
+// fx for options = {validate: false, stats:true}
+export const NoValidateStats = (arr) => {
+  const objArr = arr.map(file => (findLinksInMdFile(file))).flat(1);
+  return objArr
+};
+
+// fx for options = {validate: true, stats:true}
+export const ValidateStats = (arr) => {
+  const objArr = arr.map(file => (findLinksInMdFile(file))).flat(1);
+  const newArr = objArr.map(obj => getStatus(obj));
+  return newArr
+};
+
+// count stats
+export const getStats = (arr) => {
+  const totalLinks = arr.length;
+  const uniqueSet = new Set(arr);
+  let brokenLinks = 0;
+  for (let i = 0; i<arr.length; i++){
+    if(!arr[i].ok) {
+      return `total: ${totalLinks}
+      unique: ${uniqueSet.length}`
+    }; 
+    if (arr[i].ok == 'fail'){
+      brokenLinks ++;
+    }
+  } 
+  return `total: ${totalLinks}
+  unique: ${uniqueSet.length}
+  broken: ${brokenLinks}`
+}
 
 // ================ EXAMPLES & TESTS ==================
 
@@ -140,5 +167,4 @@ const mdFilesHere = getMdFilesArr('./Examples', ); // MD files in this path
 // dentro de la promesa
 const testsito = mdFilesHere.map(file => findLinksInMdFile(file));
 const arrFinal = testsito.flat(1)
-const linkObj = arrFinal[1]
-const probando = getStatus(linkObj)
+// getStatus(arrFinal[2])
