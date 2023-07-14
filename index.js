@@ -1,6 +1,7 @@
 // importing modules
 import fs from 'fs';
 import path from 'path';
+import axios from 'axios';
 
 // checkin if route exists
 export const pathExists = path => fs.existsSync(path);
@@ -117,11 +118,27 @@ export const checkOptions = () => {
 return options
 };
 
+// getting http status and status text from linkObj
+export const getStatus = (linkObj) => {
+  console.log(linkObj)
+  const url = linkObj.href;
+  axios.get(url)
+    .then(response => {
+      linkObj.status = response.status;
+      linkObj.ok = response.statusText;
+      console.log(linkObj);
+      return linkObj;
+    })
+    // .catch(error => { throw new Error(error)}); 
+};
+
 // ================ EXAMPLES & TESTS ==================
 
 // fuera de la promesa
-// const mdFilesHere = getMdFilesArr('./Examples', ); // MD files in this path
+const mdFilesHere = getMdFilesArr('./Examples', ); // MD files in this path
 
 // dentro de la promesa
-// const testsito = mdFilesHere.map(file => findLinksInMdFile(file));
-// console.log(testsito.flat(1))
+const testsito = mdFilesHere.map(file => findLinksInMdFile(file));
+const arrFinal = testsito.flat(1)
+const linkObj = arrFinal[1]
+const probando = getStatus(linkObj)
