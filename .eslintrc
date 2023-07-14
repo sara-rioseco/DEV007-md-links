@@ -6,5 +6,11 @@
     "ecmaVersion": 8,
     "sourceType": "module",
     "allowImportExportEverywhere": true
+  },  
+    "extends": [
+          "airbnb"
+      ],
+    "rules": {
+      "max-len": ["error", { "code": 80 }]
+    }
   }
-}

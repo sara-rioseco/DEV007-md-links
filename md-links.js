@@ -30,4 +30,4 @@ export const mdLinks = (path, options) => {
   };
 };
 
-mdLinks('./Examples/example.md', )
+mdLinks('./Examples', )
