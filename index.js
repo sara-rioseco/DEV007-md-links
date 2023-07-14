@@ -148,14 +148,14 @@ export const getStats = (arr) => {
   for (let i = 0; i<arr.length; i++){
     if(!arr[i].ok) {
       return `total: ${totalLinks}
-      unique: ${uniqueSet.length}`
+      unique: ${uniqueSet.size}`
     }; 
-    if (arr[i].ok == 'fail'){
+    if (arr[i].ok === 'fail'){
       brokenLinks ++;
     }
   } 
   return `total: ${totalLinks}
-  unique: ${uniqueSet.length}
+  unique: ${uniqueSet.size}
   broken: ${brokenLinks}`
 }
 
