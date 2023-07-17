@@ -17,7 +17,7 @@ export const getMdFilesArr = (route, mdFilesArr = []) => {
       })
     };
   } else {
-    throw('Path does not exist')
+    throw new Error('Path does not exist')
   }
   return mdFilesArr;
 };
@@ -90,31 +90,6 @@ export const getStatus = (linkObj) => {
       return linkObj;
     });
 }
-
-//checking if options validate and stats are true or not
-export const checkOptions = () => {
-  const options = new Object
-  options.validate = '';
-  options.stats = '';
-  if(process.argv.includes('--validate')) {
-    if (process.argv.includes('--stats')) {
-      options.validate = true;
-      options.stats = true;
-    } else {
-      options.validate = true;
-      options.stats = false;
-    }
-  } if (!process.argv.includes('--validate')) {
-    if (process.argv.includes('--stats')) {
-      options.validate = false;
-      options.stats = true;
-    } else {
-      options.validate = false;
-      options.stats = false;
-    }
-  }
-return options
-};
 
 // fx for options = {validate: false}
 export const NoValidate = (arr) => arr.map(file => (findLinksInMdFile(file))).flat(1);

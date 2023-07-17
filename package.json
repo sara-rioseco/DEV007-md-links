@@ -52,6 +52,5 @@
   "bugs": {
     "url": "https://github.com/sara-rioseco/DEV007-md-links/issues"
   },
-  "homepage": "https://github.com/sara-rioseco/DEV007-md-links#readme",
-  "bin": "./cli.js"
+  "homepage": "https://github.com/sara-rioseco/DEV007-md-links#readme"
 }
