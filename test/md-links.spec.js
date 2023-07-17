@@ -1,4 +1,5 @@
 import mdLinks from "../md-links.js";
+// import { checkOptions } from "../cli.js";
 import {
   checkOptions,
   NoValidate,
@@ -7,13 +8,17 @@ import {
   getMdFilesArr
 } from '../index.js';
 
-jest.mock('../index.js', () => ({
-  getMdFilesArr: jest.fn(),
+/*jest.mock('../cli.js'), () => ({
   checkOptions: jest.fn(),
+})*/
+jest.mock('../index.js', () => ({
+  checkOptions: jest.fn(),
+  getMdFilesArr: jest.fn(),
   NoValidate: jest.fn(),
   Validate: jest.fn(),
   countStats: jest.fn()
 }));
+
 
 beforeEach(() => {
   jest.clearAllMocks();
@@ -33,7 +38,7 @@ describe('mdLinks', () => {
     const getMdFilesArrMock = jest.fn()
     getMdFilesArr.mockImplementationOnce(getMdFilesArrMock);
     mdLinks(route, );
-    expect(getMdFilesArrMock).toHaveBeenCalled();
+    expect(checkOptions).toHaveBeenCalled();
   });
 });
 
