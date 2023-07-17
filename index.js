@@ -16,7 +16,7 @@ export const getMdFilesArr = (route, mdFilesArr = []) => {
         getMdFilesArr(newRoute, mdFilesArr);
       })
     };
-  } else {
+  } else if (!fs.existsSync(route)){
     throw new Error('Path does not exist')
   }
   return mdFilesArr;
