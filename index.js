@@ -16,8 +16,8 @@ export const getMdFilesArr = (route, mdFilesArr = []) => {
         getMdFilesArr(newRoute, mdFilesArr);
       })
     };
-//  } else {
-//    throw('Path does not exist')
+  } else {
+    throw('Path does not exist')
   }
   return mdFilesArr;
 };
@@ -74,31 +74,6 @@ export const findLinksInMdFile = route => {
   const linksInFile = getLinks(fileContent);
   const linksObjArr = separateAllLinks(linksInFile, route);
   return linksObjArr;
-};
-
-//checking if options validate and stats are true or not
-export const checkOptions = () => {
-  const options = new Object
-  options.validate = '';
-  options.stats = '';
-  if(process.argv.includes('--validate')) {
-    if (process.argv.includes('--stats')) {
-      options.validate = true;
-      options.stats = true;
-    } else {
-      options.validate = true;
-      options.stats = false;
-    }
-  } if (!process.argv.includes('--validate')) {
-    if (process.argv.includes('--stats')) {
-      options.validate = false;
-      options.stats = true;
-    } else {
-      options.validate = false;
-      options.stats = false;
-    }
-  }
-return options
 };
 
 // getting http status and ok/fail from linkObj

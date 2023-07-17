@@ -1,11 +1,12 @@
 // importing functions from index.js
 import {
     getMdFilesArr,
-    checkOptions,
     NoValidate,
     Validate,
     countStats
   } from './index.js';
+
+import { checkOptions } from './cli.js';
   
   // declaring main fx
   const mdLinks = (path, options) => {
