@@ -17,8 +17,7 @@ export const getMdFilesArr = (route, mdFilesArr = []) => {
       })
     };
   } else {
-    console.log('path does not exist');
-    throw new Error('Path does not axist')
+    throw new Error('Path does not exist')
   }
   return mdFilesArr;
 };
@@ -102,7 +101,7 @@ export const checkOptions = () => {
 return options
 };
 
-// getting http status and status text from linkObj
+// getting http status and ok/fail from linkObj
 export const getStatus = (linkObj) => {
   return axios.get(linkObj.href)
     .then(response => {
@@ -117,24 +116,17 @@ export const getStatus = (linkObj) => {
     });
 }
 
-// fx for options = {validate: false, stats:false}
+// fx for options = {validate: false}
 export const NoValidate = (arr) => arr.map(file => (findLinksInMdFile(file))).flat(1);
 
-// fx for options = {validate: true, stats:false}
-export const ValidateNoStats = (arr) => {
+// fx for options = {validate: true}
+export const Validate = (arr) => {
   const objArr = arr.map(file => (findLinksInMdFile(file))).flat(1);
   const newArr = objArr.map(obj => getStatus(obj));
   return newArr;
 };
 
-// fx for options = {validate: true, stats:true}
-export const ValidateStats = (arr) => {
-  const objArr = arr.map(file => (findLinksInMdFile(file))).flat(1);
-  const newArr = objArr.map(obj => getStatus(obj));
-  return newArr;
-};
-
-// count stats
+// count and return stats
 export const countStats = (arr) => {
   const totalLinks = arr.length;
   const uniqueSet = new Set(arr);
