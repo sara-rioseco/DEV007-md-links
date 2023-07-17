@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 // importing mdLinks function
-import mdLinks from './md-links';
+import mdLinks from './mdlinks';
 
 // getting arguments from command line
 const dir = process.argv[2];

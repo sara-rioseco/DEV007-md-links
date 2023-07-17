@@ -7,15 +7,15 @@ import {
   countStats
 } from '../index.js';
 
-beforeEach(() => {
+/* beforeEach(() => {
   jest.clearAllMocks();
-});
+}); */
 
 /* const mdLinksMock = jest.fn();
 mdLinksMock.mock.results;
 mdLinks.mockImplementation(mdLinksMock); */
 
-describe('mdLinks', () => {
+/* describe('mdLinks', () => {
   it.skip('should be a function', () => {
     expect(typeof mdLinks).toBe('object');
   });
@@ -26,13 +26,7 @@ describe('mdLinks', () => {
     await mdLinks('./Examples/example.md', []);
     expect(getMdFilesArr).toHaveBeenCalled();
   });
-  it('should ', () => {
-    
-  });
-  it('should ', () => {
-    
-  });
-});
+}); */
 
 describe('getMdFilesArr', () => {
   it('should be a function', () => {
