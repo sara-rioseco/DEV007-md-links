@@ -1,4 +1,3 @@
-
 // importing functions from index.js
 import {
     getMdFilesArr,

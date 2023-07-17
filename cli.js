@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+
 // importing mdLinks function
 import mdLinks from './md-links';
 
