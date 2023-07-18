@@ -12,7 +12,7 @@
   },
   "scripts": {
     "build": "babel src -d lib",
-    "test": "jest --coverage"
+    "test": "jest --coverage --verbose"
   },
   "devDependencies": {
     "@babel/cli": "^7.6.4",
