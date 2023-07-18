@@ -8,7 +8,7 @@ const mdLinks = (path, options) => {
     throw new Error('No markdown files were found')
   }
   if (options.validate && options.stats) {
-    Promise.all(Validate(filesArr)).then(result => console.log((result), countStats(result)))
+    Promise.all(Validate(filesArr)).then(result => console.log(result, countStats(result)));
     console.log ('Successfully retrieved links from .md files with validation and stats')
   };
   if (options.validate && !options.stats) {
@@ -16,7 +16,7 @@ const mdLinks = (path, options) => {
     console.log('Successfully retrieved links from .md files with validation')
   };
   if (!options.validate && options.stats) {
-    Promise.all(NoValidate(filesArr)).then(result => console.log((result), countStats(result)))
+    Promise.all(NoValidate(filesArr)).then(result => console.log(result, countStats(result)))
     console.log('Successfully retrieved links from .md files with stats')
   };
   if (!options.validate && !options.stats) {

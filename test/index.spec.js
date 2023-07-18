@@ -37,11 +37,10 @@ describe('getMdFilesArr', () => {
 
 describe('getLinks', () =>{
   it('should filter markdown img links', async () => {
-    const result = getLinks(fs.readFileSync('./Examples/More examples/And more examples/example0.md').toString());
+    const result = getLinks(fs.readFileSync('./Examples/MoreExamples/And more examples/example0.md').toString());
     await expect(typeof result).toBe('object');
   })
 })
-
 
 describe('getStatus', () => {
     const mockObj = { href: 'https://nodejs.org/es/' }
@@ -52,10 +51,18 @@ describe('getStatus', () => {
     const newObj = getStatus(mockObj).then(result => result);
       expect(await newObj).toHaveProperty('status', 200)
     })
-    it('should add the "ok" property with "fail" value if the url does not exist', async () => {
+    it('should add the "ok" property with "ok" value if the url is valid', async () => {
+      const newObj = getStatus(mockObj).then(result => result);
+        expect(await newObj).toHaveProperty('ok', 'ok')
+      })
+    it('should add the status property with "404" value if the url does not exist', async () => {
     const newObj = getStatus({ href: 'https://nodejs.org/es-muy-genial' }).then(result => result);
-      expect(await newObj).toHaveProperty('ok', 'fail')
+      expect(await newObj).toHaveProperty('status', 404)
     })
+    it('should add the "ok" property with "fail" value if the url does not exist', async () => {
+      const newObj = getStatus({ href: 'https://nodejs.org/es-muy-genial' }).then(result => result);
+        expect(await newObj).toHaveProperty('ok', 'fail')
+      })
 })
   
 describe('NoValidate', () => {

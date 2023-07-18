@@ -38,4 +38,4 @@ const dir = process.argv[2];
 const opts = checkOptions();
 
 // calling function with args entered in command line
-mdLinks(dir, opts)
+Promise.resolve(mdLinks(dir, opts));
