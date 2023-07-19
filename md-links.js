@@ -1,5 +1,6 @@
 // importing functions from ./index.js
-import { getMdFilesArr, Validate, NoValidate, countStats } from "./index.js";
+import chalk from 'chalk';
+import { getMdFilesArr, validate, noValidate, countStats } from "./index.js";
 
 // declaring main fx
 const mdLinks = (path, options) => {
@@ -8,20 +9,20 @@ const mdLinks = (path, options) => {
     throw new Error('No markdown files were found')
   }
   if (options.validate && options.stats) {
-    Promise.all(Validate(filesArr)).then(result => console.log(result, countStats(result)));
-    console.log ('Successfully retrieved links from .md files with validation and stats')
+    Promise.all(validate(filesArr)).then(result => console.log(result, countStats(result)));
+    console.log(chalk.bold.inverse('Successfully retrieved links from .md files with validation and stats'))
   };
   if (options.validate && !options.stats) {
-    Promise.all(Validate(filesArr)).then(result => console.log(result))
-    console.log('Successfully retrieved links from .md files with validation')
+    Promise.all(validate(filesArr)).then(result => console.log(result))
+    console.log(chalk.bold.inverse('Successfully retrieved links from .md files with validation'))
   };
   if (!options.validate && options.stats) {
-    Promise.all(NoValidate(filesArr)).then(result => console.log(result, countStats(result)))
-    console.log('Successfully retrieved links from .md files with stats')
+    Promise.all(noValidate(filesArr)).then(result => console.log(result, countStats(result)))
+    console.log(chalk.bold.inverse('Successfully retrieved links from .md files with stats'))
   };
   if (!options.validate && !options.stats) {
-    Promise.all(NoValidate(filesArr)).then(result => console.log(result))
-    console.log('Successfully retrieved links from .md files without validation nor stats')
+    Promise.all(noValidate(filesArr)).then(result => console.log(result))
+    console.log(chalk.bold.inverse('Successfully retrieved links from .md files without validation nor stats'))
   };
 };
 

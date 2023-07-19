@@ -93,10 +93,10 @@ export const getStatus = (linkObj) => {
 }
 
 // fx for options = {validate: false}
-export const NoValidate = (arr) => arr.map(file => (findLinksInMdFile(file))).flat(1);
+export const noValidate = (arr) => arr.map(file => (findLinksInMdFile(file))).flat(1);
 
 // fx for options = {validate: true}
-export const Validate = (arr) => {
+export const validate = (arr) => {
   const objArr = arr.map(file => (findLinksInMdFile(file))).flat(1);
   const newArr = objArr.map(obj => getStatus(obj));
   return newArr;
@@ -111,8 +111,8 @@ export const countStats = (arr) => {
   for (let i = 0; i<arr.length; i++){
     if(!arr[i].ok) {
       return `
-      Total: ${totalLinks}
-      ${chalk.yellow('Unique:')} ${chalk.yellow(uniqueSet.size)}
+      ${chalk.bold.blue('Total:')} ${chalk.bold.blue(totalLinks)}
+      ${chalk.bold.blue('Unique:')} ${chalk.bold.blue(uniqueSet.size)}
       `
     }; 
     if(arr[i].ok === 'fail'){
@@ -124,8 +124,8 @@ export const countStats = (arr) => {
   } 
   return `
   Total: ${totalLinks}
-  ${chalk.yellow('Unique:')} ${chalk.yellow(uniqueSet.size)}
-  ${chalk.red('Broken:')} ${chalk.red(brokenLinks)}
-  ${chalk.green('Working:')} ${chalk.green(workingLinks)}
+  ${chalk.bold.blue('Unique:')} ${chalk.bold.blue(uniqueSet.size)}
+  ${chalk.bold.red('Broken:')} ${chalk.bold.red(brokenLinks)}
+  ${chalk.bold.green('Working:')} ${chalk.bold.green(workingLinks)}
   `
 }

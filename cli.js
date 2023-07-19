@@ -1,11 +1,6 @@
 #!/usr/bin/env node
-// importing functions from index.js
-import {
-  getMdFilesArr,
-  NoValidate,
-  Validate,
-  countStats
-} from './index.js';
+
+// importing mdLinks function from md-links.js
 import mdLinks from './md-links.js';
 
 //checking if options validate and stats are true or not

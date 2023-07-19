@@ -1,5 +1,5 @@
 import fs from 'fs';
-import { getMdFilesArr, getLinks, getStatus, Validate, NoValidate, countStats } from "../index.js";
+import { getMdFilesArr, getLinks, getStatus, validate, noValidate, countStats } from "../index.js";
 
 const linksArr = [
   {
@@ -65,15 +65,15 @@ describe('getStatus', () => {
       })
 })
   
-describe('NoValidate', () => {
+describe('noValidate', () => {
   it('should be a function', () => {
-    expect(typeof NoValidate).toBe('function');
+    expect(typeof noValidate).toBe('function');
   });
 });
   
-describe('Validate', () => {
+describe('validate', () => {
   it('should be a function', () => {
-    expect(typeof Validate).toBe('function');
+    expect(typeof validate).toBe('function');
   });
 });
   
@@ -92,4 +92,3 @@ describe('countStats', () => {
     expect(countStatsMock()).toBe(result);
   });
 });
-  

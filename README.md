@@ -42,7 +42,7 @@ chosen to develop this tool. You can use this library as CLI application or
 as an API. 
 
 This library and the CLI use external libraries as dependencies (such as the [path](https://nodejs.org/api/path.html) module, 
-the [FS](https://nodejs.org/api/fs.html) module, and the HTTP client [Axios](https://axios-http.com/docs/intro), 
+the [FS](https://nodejs.org/api/fs.html) module, the HTTP client [Axios](https://axios-http.com/docs/intro), and the terminal string styling API [Chalk](https://www.npmjs.com/package/chalk))
 and were developed with Javascript to be run with NodeJS. [Babel](https://babeljs.io/), [Eslint](https://eslint.org/) and [Jest](https://jestjs.io/) were also 
 used for the developing/testing stages.
 
