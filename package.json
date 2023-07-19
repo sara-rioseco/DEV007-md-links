@@ -28,11 +28,7 @@
   },
   "dependencies": {
     "axios": "^1.4.0",
-    "node-fetch": "^3.3.1",
-    "semver": "^7.5.3"
-  },
-  "overrides": {
-    "semver": "^7.5.3"
+    "semver": "^7.5.4"
   },
   "description": "Md-links module is a CLI application that can be used to retrieve all links, inside markdown files that are present in a specific path. ",
   "main": "./cli.js",
