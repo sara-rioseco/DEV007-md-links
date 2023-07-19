@@ -2,6 +2,7 @@
 import fs from 'fs';
 import path from 'path';
 import axios from 'axios';
+import chalk from 'chalk';
 
 // getting an array with all MD files in a specific directory including sub-folders
 export const getMdFilesArr = (route, mdFilesArr = []) => {
@@ -106,16 +107,25 @@ export const countStats = (arr) => {
   const totalLinks = arr.length;
   const uniqueSet = new Set(arr);
   let brokenLinks = 0;
+  let workingLinks = 0;
   for (let i = 0; i<arr.length; i++){
     if(!arr[i].ok) {
-      return `total: ${totalLinks}
-      unique: ${uniqueSet.size}`
+      return `
+      Total: ${totalLinks}
+      ${chalk.yellow('Unique:')} ${chalk.yellow(uniqueSet.size)}
+      `
     }; 
-    if (arr[i].ok === 'fail'){
+    if(arr[i].ok === 'fail'){
       brokenLinks ++;
+    };
+    if(arr[i].ok === 'ok') {
+      workingLinks ++;
     }
   } 
-  return `total: ${totalLinks}
-  unique: ${uniqueSet.size}
-  broken: ${brokenLinks}`
+  return `
+  Total: ${totalLinks}
+  ${chalk.yellow('Unique:')} ${chalk.yellow(uniqueSet.size)}
+  ${chalk.red('Broken:')} ${chalk.red(brokenLinks)}
+  ${chalk.green('Working:')} ${chalk.green(workingLinks)}
+  `
 }
