@@ -29,7 +29,8 @@ accessible. This situation diminish the value of the information you are trying
 to share. That's why this project intends to tackle that problem by reading and 
 analyzing Markdown files, verifying the links inside of them and creating a 
 report with these links' stats.
-<p align="center"><img src="https://github.com/sara-rioseco/DEV007-md-links/assets/128411016/d21024ed-18d0-42bf-afac-5266891dcc52" width="10%" heigth="10%"></p> 
+
+![markdown-logo](https://github.com/sara-rioseco/DEV007-md-links/blob/main/src/img/markdown.png?raw=true)
 
 ## 2. Project definition 🚀
 
