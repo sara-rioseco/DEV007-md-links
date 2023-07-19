@@ -5,9 +5,10 @@
 * [1. Introduction](#1-introduction)
 * [2. Project definition](#2-project-definition)
 * [3. User guide](#3-user-guide)
-* [4. Planning](#4-planning)
-* [5. Requirements checklist](#5-requirements-checklist)
-* [6. Tools and skills](#6-tools-and-skills)
+* [4. Unit tests](#4-unit-tests)
+* [5. Planning](#5-planning)
+* [6. Requirements checklist](#6-requirements-checklist)
+* [7. Tools and skills](#7-tools-and-skills)
 
 ***
 
@@ -72,7 +73,7 @@ the links found in that path. If the path is not valid, or no .md file is
 found and error will appear.
 
       npx @sara-rioseco/md-links <path>
-![no-options]()
+![no-options](https://github.com/sara-rioseco/DEV007-md-links/blob/main/src/img/response-novalidate-nostats.PNG?raw=true)
 
 * Only --validate: if only the --validate option is entered, the application 
 will show you all the links found and will check if they are valid through 
@@ -81,7 +82,7 @@ each link. If the path is not valid, or no .md file is
 found and error will appear.
 
       npx @sara-rioseco/md-links <path> --validate
-![only-validate]()
+![only-validate](https://github.com/sara-rioseco/DEV007-md-links/blob/main/src/img/response-validate-nostats.PNG?raw=true)
 
 * Only --stats: if only the --stats option is entered, the application 
 will show you all the links found and will add a message with the total links 
@@ -89,7 +90,7 @@ found, and how many of them are unique links (the ones that are not repeated).
 If the path is not valid, or no .md file is found and error will appear.
 
       npx @sara-rioseco/md-links <path> --stats
-![only-stats]()
+![only-stats](https://github.com/sara-rioseco/DEV007-md-links/blob/main/src/img/response-novalidate-stats.PNG?raw=true)
 
 * --validate and --stats: if the --validate and --stats options are provided,
   the application will show you all the links found and will check if they are 
@@ -100,7 +101,7 @@ are not repeated) and how many are broken. If the path is not valid, or no .md
 file is found and error will appear.
 
       npx @sara-rioseco/md-links <path> --validate --stats
-![validate-and-stats]()
+![validate-and-stats](https://github.com/sara-rioseco/DEV007-md-links/blob/main/src/img/response-validate-stats.PNG?raw=true)
 
 ### As an API (Application Programming Interface)
 #### Installation
@@ -130,7 +131,7 @@ the links found in that path. If the path is not valid, or no .md file is
 found and error will appear.
 
       node cli.js <path>
-![no-options]()
+![no-options](https://github.com/sara-rioseco/DEV007-md-links/blob/main/src/img/response-novalidate-nostats.PNG?raw=true)
 
 * Only --validate: if only the --validate option is entered, the application 
 will show you all the links found and will check if they are valid through 
@@ -139,7 +140,7 @@ each link. If the path is not valid, or no .md file is
 found and error will appear.
 
       node cli.js <path> --validate
-![only-validate]()
+![only-validate](https://github.com/sara-rioseco/DEV007-md-links/blob/main/src/img/response-validate-nostats.PNG?raw=true)
 
 * Only --stats: if only the --stats option is entered, the application 
 will show you all the links found and will add a message with the total links 
@@ -147,7 +148,7 @@ found, and how many of them are unique links (the ones that are not repeated).
 If the path is not valid, or no .md file is found and error will appear.
 
       node cli.js <path> --stats
-![only-stats]()
+![only-stats](https://github.com/sara-rioseco/DEV007-md-links/blob/main/src/img/response-novalidate-stats.PNG?raw=true)
 
 * --validate and --stats: if the --validate and --stats options are provided,
   the application will show you all the links found and will check if they are 
@@ -158,25 +159,31 @@ are not repeated) and how many are broken. If the path is not valid, or no .md
 file is found and error will appear.
 
       node cli.js <path> --validate --stats
-![validate-and-stats]()
+![validate-and-stats](https://github.com/sara-rioseco/DEV007-md-links/blob/main/src/img/response-validate-stats.PNG?raw=true)
 
-## 4. Planning
+## 4. Unit tests
+
+
+
+![tests-coverage](https://github.com/sara-rioseco/DEV007-md-links/blob/main/src/img/tests.PNG?raw=true)
+
+## 5. Planning
 
 For the planning of this project, I used the Trello app and also GitHub 
 Projects, Issues, Milestones and Boards. You can find an image of both 
 tools below.
 
-![trello-board]()
+![trello-board](https://github.com/sara-rioseco/DEV007-md-links/blob/main/src/img/trello.PNG?raw=true)
 
-![github-projects]()
+![github-projects](https://github.com/sara-rioseco/DEV007-md-links/blob/main/src/img/github-project.PNG?raw=true)
 
 Also during this stage, I designed a flowchart of the main function of 
-the project. There were at least 3 different version of this flowchart, 
-you can see the final one below.
+the project. There were at least 3 different versions of this flowchart, 
+you can see the final version below.
 
-![final-flowchart]()
+![final-flowchart](https://github.com/sara-rioseco/DEV007-md-links/blob/main/src/img/flowchart3.png?raw=true)
 
-## 5. Requirements checklist
+## 6. Requirements checklist
 
 ### General
 * [x] Can be installed with `npm install --global <github-user>/md-links`
@@ -204,7 +211,7 @@ in `package.json`)
 lines and branches.
 * [x] Tests passed (including linters) (`npm test`).
 
-## 6. Tools and skills
+## 7. Tools and skills
 
 ### JavaScript
 * [x] **Difference between primitive and non-primitive data 
