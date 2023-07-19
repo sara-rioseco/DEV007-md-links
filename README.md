@@ -12,7 +12,7 @@
 
 ***
 
-## 1. Introduction
+## 1. Introduction ✈️
 
 [Markdown](https://en.wikipedia.org/wiki/Markdown) is an lightweight markup
 language that is used with plain text to add formatting elements (headings, 
@@ -29,10 +29,9 @@ accessible. This situation diminish the value of the information you are trying
 to share. That's why this project intends to tackle that problem by reading and 
 analyzing Markdown files, verifying the links inside of them and creating a 
 report with these links' stats.
+<p align="center"><img src="https://github.com/sara-rioseco/DEV007-md-links/assets/128411016/d21024ed-18d0-42bf-afac-5266891dcc52" width="10%" heigth="10%"></p> 
 
-![markdown-logo]()
-
-## 2. Project definition
+## 2. Project definition 🚀
 
 This module is a library that can be used to retrieve all links, inside all 
 markdown files that are present in a specific path (folder or file). Besides 
@@ -46,7 +45,7 @@ the [FS](https://nodejs.org/api/fs.html) module, and the HTTP client [Axios](htt
 and were developed with Javascript to be run with NodeJS. [Babel](https://babeljs.io/), [Eslint](https://eslint.org/) and [Jest](https://jestjs.io/) were also 
 used for the developing/testing stages.
 
-## 3. User guide
+## 3. User guide 📖
 
 ### As a CLI (Command-Line Application)
 #### Installation
@@ -161,13 +160,13 @@ file is found and error will appear.
       node cli.js <path> --validate --stats
 ![validate-and-stats](https://github.com/sara-rioseco/DEV007-md-links/blob/main/src/img/response-validate-stats.PNG?raw=true)
 
-## 4. Unit tests
+## 4. Unit tests with Jest 🤡
 
-
+Unit tests were run using Jest, achieving a 97.89% of statements, 94.87% of branches, 91.3% of functions and 100% of lines, considering both files tested. You can check the results below:
 
 ![tests-coverage](https://github.com/sara-rioseco/DEV007-md-links/blob/main/src/img/tests.PNG?raw=true)
 
-## 5. Planning
+## 5. Planning 📆
 
 For the planning of this project, I used the Trello app and also GitHub 
 Projects, Issues, Milestones and Boards. You can find an image of both 
@@ -183,7 +182,7 @@ you can see the final version below.
 
 ![final-flowchart](https://github.com/sara-rioseco/DEV007-md-links/blob/main/src/img/flowchart3.png?raw=true)
 
-## 6. Requirements checklist
+## 6. Requirements checklist ✔️
 
 ### General
 * [x] Can be installed with `npm install --global <github-user>/md-links`
@@ -211,7 +210,7 @@ in `package.json`)
 lines and branches.
 * [x] Tests passed (including linters) (`npm test`).
 
-## 7. Tools and skills
+## 7. Tools and skills 🛠️
 
 ### JavaScript
 * [x] **Difference between primitive and non-primitive data 
